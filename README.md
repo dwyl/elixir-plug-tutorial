@@ -83,10 +83,36 @@ we need to add it to list of "children"
 in the `start/2` function
 in `lib/app/application.ex`.
 
-Open your `lib/app/application.ex` file and locate the section:
+Open your `lib/app/application.ex` file
+and replace the contents with the following code:
 
 ```elixir
-def start(_type, _args) do
-  children = [
-  ]
+defmodule App.Application do
+  # See https://hexdocs.pm/elixir/Application.html
+  # for more information on OTP Applications
+
+  use Application
+  require logger
+
+  def start(_type, _args) do
+    children = [
+      {Plug.Cowboy, scheme: :http, plug: App.HelloWorld, options: [port: 4000]}
+    ]
+
+    Logger.info("Visit: http://localhost:4000")
+    # See https://hexdocs.pm/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: App.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
 ```
+
+
+
+
+
+## Recommended Reading
+
++ A deeper dive in Elixir's Plug:
+https://ieftimov.com/post/a-deeper-dive-in-elixir-plug

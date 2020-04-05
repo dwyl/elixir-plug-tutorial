@@ -7,7 +7,7 @@ defmodule App.Application do
 
   def start(_type, _args) do
     children = [
-      {Plug.Cowboy, scheme: :http, plug: App.HelloWorl, options: [port: 4000]}
+      {Plug.Cowboy, scheme: :http, plug: App.HelloWorld, options: [port: 4000]}
     ]
 
     Logger.info("Visit: http://localhost:4000")
