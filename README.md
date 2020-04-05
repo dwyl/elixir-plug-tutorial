@@ -183,6 +183,18 @@ mix run --no-halt
 ![hello-elixir-plug](https://user-images.githubusercontent.com/194400/78511381-19352580-7794-11ea-809d-f5b92028e3eb.png)
 
 
+## Auth Plug
+
+Next: https://elixirschool.com/en/lessons/specifics/plug/#adding-another-plug
+
+
+
+
+
+
+
+
+
 ## Recommended Reading
 
 
