@@ -133,8 +133,54 @@ Open your web browser and visit: http://localhost:4000
 ![hello-world](https://user-images.githubusercontent.com/194400/78510862-3b2ca900-7790-11ea-945e-a1d7d81d287f.png)
 
 
+### Plug Router
+
+Create a new file: `lib/app/router.ex`
+Add the following code to it:
+
+```elixir
+defmodule App.Router do
+  use Plug.Router
+
+  plug :match
+  plug :dispatch
+
+  get "/" do
+    send_resp(conn, 200, "Hello Elixir Plug!")
+  end
+
+  match _ do
+    send_resp(conn, 404, "Oops!")
+  end
+end
+
+```
+
+# Todo: add explanation
 
 
+
+Open the `application.ex` file and replace the line:
+
+```elixir
+{Plug.Cowboy, scheme: :http, plug: App.HelloWorld, options: [port: 4000]}
+```
+
+With:
+
+```elixir
+{Plug.Cowboy, scheme: :http, plug: App.Router, options: [port: 4000]}
+```
+
+`App.HelloWorld` -> `App.Router`
+
+
+```
+mix run --no-halt
+```
+
+
+![hello-elixir-plug](https://user-images.githubusercontent.com/194400/78511381-19352580-7794-11ea-809d-f5b92028e3eb.png)
 
 
 ## Recommended Reading
