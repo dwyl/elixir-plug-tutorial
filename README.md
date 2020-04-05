@@ -76,3 +76,17 @@ end
 `init/1` and `call/2` are required functions for a Plug. <br />
 `init/1` is invoked when the application is initialised. <br />
 `call/2` is invoked as the handler for all requests.
+
+
+We cannot _run_ this file yet,
+we need to add it to list of "children"
+in the `start/2` function
+in `lib/app/application.ex`.
+
+Open your `lib/app/application.ex` file and locate the section:
+
+```elixir
+def start(_type, _args) do
+  children = [
+  ]
+```
