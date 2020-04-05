@@ -24,3 +24,18 @@ That will create a project directory with the following files:
     ├── app_test.exs
     └── test_helper.exs
 ```
+
+### Dependencies
+
+Plug is the system for handling HTTP requests
+but it is not an HTTP server, 
+for that we need to add 
+[**`Cowboy`**](https://github.com/ninenines/cowboy). 
+
+Open your `mix.exs` file and locate the `defp deps do` section.
+Add the following line to the list of dependencies:
+
+```elixir
+{:plug_cowboy, "~> 2.1"}
+```
+
