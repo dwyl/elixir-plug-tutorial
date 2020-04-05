@@ -28,9 +28,9 @@ That will create a project directory with the following files:
 ### Dependencies
 
 Plug is the system for handling HTTP requests
-but it is not an HTTP server, 
-for that we need to add 
-[**`Cowboy`**](https://github.com/ninenines/cowboy). 
+but it is not an HTTP server,
+for that we need to add
+[**`Cowboy`**](https://github.com/ninenines/cowboy).
 
 Open your `mix.exs` file and locate the `defp deps do` section.
 Add the following line to the list of dependencies:
@@ -52,3 +52,27 @@ mix deps.get
 That will create a
 [`mix.lock`](https://github.com/nelsonic/elixir-plug-tutorial/blob/0cb4baeba23c7440b2d16ca89721cbe7338f1d09/mix.lock)
 file that lists the exact version of dependencies used.
+
+
+### Hello World
+
+Create a new file with the path: `lib/app/hello_world.ex`
+
+Add the following code to the file:
+```elixir
+defmodule App.HelloWorld do
+  import Plug.Conn
+
+  def init(options), do: options
+
+  def call(conn, _opts) do
+    conn
+    |> put_resp_content_type("text/plain")
+    |> send_resp(200, "Hello World!\n")
+  end
+end
+```
+
+`init/1` and `call/2` are required functions for a Plug. <br />
+`init/1` is invoked when the application is initialised. <br />
+`call/2` is invoked as the handler for all requests.
