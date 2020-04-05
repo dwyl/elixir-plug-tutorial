@@ -92,7 +92,7 @@ defmodule App.Application do
   # for more information on OTP Applications
 
   use Application
-  require logger
+  require Logger
 
   def start(_type, _args) do
     children = [
@@ -107,6 +107,31 @@ defmodule App.Application do
   end
 end
 ```
+
+Your `application.ex` file should look like this:
+[`lib/app/application.ex`](https://github.com/nelsonic/elixir-plug-tutorial/blob/master/lib/app/application.ex)
+
+
+
+Once the file is saved, run the app with the following command:
+
+```
+mix run --no-halt
+```
+
+You should see output similar to the following:
+
+```
+Compiling 3 files (.ex)
+Generated app app
+
+22:52:04.719 [info]  Visit: http://localhost:4000
+```
+
+Open your web browser and visit: http://localhost:4000
+
+![hello-world](https://user-images.githubusercontent.com/194400/78510862-3b2ca900-7790-11ea-945e-a1d7d81d287f.png)
+
 
 
 

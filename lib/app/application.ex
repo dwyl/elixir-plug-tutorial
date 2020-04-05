@@ -3,7 +3,7 @@ defmodule App.Application do
   # for more information on OTP Applications
 
   use Application
-  require logger
+  require Logger
 
   def start(_type, _args) do
     children = [
