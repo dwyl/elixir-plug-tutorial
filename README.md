@@ -139,5 +139,14 @@ Open your web browser and visit: http://localhost:4000
 
 ## Recommended Reading
 
+
++ Elixir School Plug:
+https://elixirschool.com/en/lessons/specifics/plug/
++ Getting started with Plug in Elixir
+https://www.brianstorti.com/getting-started-with-plug-elixir/
 + A deeper dive in Elixir's Plug:
 https://ieftimov.com/post/a-deeper-dive-in-elixir-plug
++ Elixir: Building a Small JSON Endpoint With Plug, Cowboy and Poison
+https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowboy-and-poison-1826
++ Serving Plug: Building an Elixir HTTP server from scratch
+https://blog.appsignal.com/2019/01/22/serving-plug-building-an-elixir-http-server.html
