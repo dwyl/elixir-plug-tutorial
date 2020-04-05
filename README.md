@@ -39,3 +39,16 @@ Add the following line to the list of dependencies:
 {:plug_cowboy, "~> 2.1"}
 ```
 
+Once you've saved your file,
+it should looke like this:
+[`mix.exs#L25`](https://github.com/nelsonic/elixir-plug-tutorial/blob/2857e49409bb3e21f699a165631701e7ca1323e3/mix.exs#L25)
+
+Install the dependencies by running the following command:
+
+```sh
+mix deps.get
+```
+
+That will create a
+[`mix.lock`](https://github.com/nelsonic/elixir-plug-tutorial/blob/0cb4baeba23c7440b2d16ca89721cbe7338f1d09/mix.lock)
+file that lists the exact version of dependencies used.
