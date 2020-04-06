@@ -196,8 +196,14 @@ Create a new file with the path: `lib/app/verify_request.ex`
 Visit:
 http://localhost:4000/upload
 
-No content:
+Firefox shows a blank screen with no content:
 ![no-content](https://user-images.githubusercontent.com/194400/78546716-d1df8100-77f5-11ea-87c1-47cd8ae64ad9.png)
+
+
+Google Chrome shows the following `HTTP ERROR 500`:
+
+![500-error](https://user-images.githubusercontent.com/194400/78551239-4833b180-77fd-11ea-836e-ae4847f72056.png)
+
 
 
 Terminal output:
@@ -211,9 +217,9 @@ Request: GET /upload
         (app 0.1.0) lib/app/verify_request.ex:13: App.Plug.VerifyRequest.call/2
         (app 0.1.0) lib/app/router.ex:1: App.Router.plug_builder_call/2
         (plug_cowboy 2.1.2) lib/plug/cowboy/handler.ex:12: Plug.Cowboy.Handler.init/2
-        (cowboy 2.7.0) /Users/n/code/elixir-plug-tutorial/deps/cowboy/src/cowboy_handler.erl:41: :cowboy_handler.execute/2
-        (cowboy 2.7.0) /Users/n/code/elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl:320: :cowboy_stream_h.execute/3
-        (cowboy 2.7.0) /Users/n/code/elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl:302: :cowboy_stream_h.request_process/3
+        (cowboy 2.7.0) /elixir-plug-tutorial/deps/cowboy/src/cowboy_handler.erl:41: :cowboy_handler.execute/2
+        (cowboy 2.7.0) /elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl:320: :cowboy_stream_h.execute/3
+        (cowboy 2.7.0) /elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl:302: :cowboy_stream_h.request_process/3
         (stdlib 3.11.2) proc_lib.erl:249: :proc_lib.init_p_do_apply/3
 ```
 
@@ -290,6 +296,79 @@ You should expect to see the following output:
 Finished in 0.03 seconds
 1 doctest, 4 tests, 0 failures
 ```
+
+
+## Error Handling
+
+
+As noted above, the UX for an unsuccessful request is rather bad.
+
+Open the `router.ex` file and add the following line near the top:
+
+```elixir
+use Plug.ErrorHandler
+```
+
+Then at the _end_ of the file add the following function definition:
+
+```elixir
+defp handle_errors(conn, %{kind: kind, reason: reason, stack: stack}) do
+  IO.inspect(kind, label: :kind)
+  IO.inspect(reason, label: :reason)
+  IO.inspect(stack, label: :stack)
+  send_resp(conn, conn.status, "Something went wrong")
+end
+```
+
+Your `router.ex` file should now look like this:
+[`lib/app/router.ex`](https://github.com/nelsonic/elixir-plug-tutorial/blob/915ef0e15bba4d887a0bb446685b264ce590bb8c/lib/app/router.ex)
+
+
+Running the app now:
+```
+mix run --no-halt
+```
+
+Visiting the `/upload` path in your browser:
+http://localhost:4000/upload
+
+You will now see:
+
+![something-went-wrong](https://user-images.githubusercontent.com/194400/78572787-d02ab300-781f-11ea-9acc-38bfb1da7883.png)
+
+In your terminal, you will see the following output:
+
+```
+kind: :error
+reason: %App.Plug.VerifyRequest.IncompleteRequestError{message: "", plug_status: 400}
+stack: [
+  {App.Plug.VerifyRequest, :verify_request!, 2,
+   [file: 'lib/app/verify_request.ex', line: 23]},
+  {App.Plug.VerifyRequest, :call, 2,
+   [file: 'lib/app/verify_request.ex', line: 13]},
+  {App.Router, :plug_builder_call, 2, [file: 'lib/app/router.ex', line: 1]},
+  {App.Router, :call, 2, [file: 'lib/plug/error_handler.ex', line: 65]},
+  {Plug.Cowboy.Handler, :init, 2,
+   [file: 'lib/plug/cowboy/handler.ex', line: 12]},
+  {:cowboy_handler, :execute, 2,
+   [
+     file: '/elixir-plug-tutorial/deps/cowboy/src/cowboy_handler.erl',
+     line: 41
+   ]},
+  {:cowboy_stream_h, :execute, 3,
+   [
+     file: '/elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl',
+     line: 320
+   ]},
+  {:cowboy_stream_h, :request_process, 3,
+   [
+     file: '/elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl',
+     line: 302
+   ]}
+]
+```
+
+
 
 
 
