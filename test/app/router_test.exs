@@ -38,4 +38,16 @@ defmodule App.RouterTest do
     assert conn.state == :sent
     assert conn.status == 404
   end
+
+
+  test "Invoke the App.Router.handle_errors/2" do
+    args = %{kind: "kind", reason: "reason", stack: "stack"}
+    conn =
+      :get
+      |> conn("/", "")
+      |> Map.put(:status, 500)
+      |> Router.handle_errors(args)
+
+    assert conn.resp_body == "Something went wrong"
+  end
 end
