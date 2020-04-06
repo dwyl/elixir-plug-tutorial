@@ -523,23 +523,41 @@ The only line that is not yet covered in the project is:
 
 ![init-uncovered](https://user-images.githubusercontent.com/194400/78600162-56f48580-784a-11ea-9b80-2251604ee080.png)
 
-Create a new file with the path:
-`test/app/verify_request_test.exs`
+Open the `test/app/router_test.exs` file
+and locate the line `test "returns uploaded" do`.
 
-And paste the following code:
+Update the test to the following:
 
 ```elixir
-defmodule App.VerifyRequestTest do
-  use ExUnit.Case
-  alias App.Plug.VerifyRequest
+test "returns uploaded" do
+  options = App.Plug.VerifyRequest.init(%{})
+  conn =
+    :get
+    |> conn("/upload?content=#{@content}&mimetype=#{@mimetype}")
+    |> Router.call(options)
 
-  test "invoke init/1" do
-    assert VerifyRequest.init(%{hello: "world"}) == %{hello: "world"}
-  end
+  assert conn.state == :sent
+  assert conn.status == 201
 end
 ```
 
+Re-run the coverage report:
 
+```
+mix coveralls.html
+```
+
+You should now see:
+
+```
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/app/application.ex                         19        4        0
+100.0% lib/app/router.ex                              29       10        0
+100.0% lib/app/verify_request.ex                      27        6        0
+[TOTAL] 100.0%
+----------------
+```
 
 
 
