@@ -56,6 +56,9 @@ file that lists the exact version of dependencies used.
 
 ### Hello World
 
+At the most basic level, a Plug is a request handler.
+Let's create a "Hello World" example with the bare minimum code.
+
 Create a new file with the path: `lib/app/hello_world.ex`
 
 Add the following code to the file:
@@ -369,12 +372,46 @@ stack: [
 ```
 
 
+## Tidy Up
+
+By the end of this little quest,
+we have two unused files:
+`lib/app.ex`
+and
+`lib/app/hello_world.ex`
+
+The best way to discover which files are unused in your project,
+is to run `ExCoveralls`.
+
+Open the `mix.exs` file
+and add the following lines to the `project/0` definition:
+
+```elixir
+test_coverage: [tool: ExCoveralls],
+preferred_cli_env: [
+  coveralls: :test,
+  "coveralls.detail": :test,
+  "coveralls.post": :test,
+  "coveralls.html": :test
+],
+```
+
+Then in the `deps/0` add the dependency:
+
+```elixir
+{:excoveralls, "~> 0.12.3", only: :test},
+```
+
+Your `mix.exs` should now look like this:
+
 
 
 
 ## Recommended Reading
 
 
++ Elixir Plug GitHub:
+https://github.com/elixir-plug/plug
 + Elixir School Plug:
 https://elixirschool.com/en/lessons/specifics/plug/
 + Getting started with Plug in Elixir
@@ -387,3 +424,5 @@ https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowbo
 https://blog.appsignal.com/2019/01/22/serving-plug-building-an-elixir-http-server.html
 + Testing Elixir Plugs (2016):
 https://thoughtbot.com/blog/testing-elixir-plugs
++ Target a specific path:
+https://medium.com/inside-heetch/an-elixir-plug-that-targets-a-specific-path-f0c17bd232a7
