@@ -4,7 +4,7 @@ defmodule App.Plug.VerifyRequest do
     Error raised when a required field is missing.
     """
 
-    defexception message: ""
+    defexception message: "", plug_status: 400
   end
 
   def init(options), do: options
