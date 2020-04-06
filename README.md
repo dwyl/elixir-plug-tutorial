@@ -183,11 +183,11 @@ mix run --no-halt
 ![hello-elixir-plug](https://user-images.githubusercontent.com/194400/78511381-19352580-7794-11ea-809d-f5b92028e3eb.png)
 
 
-## Auth Plug
+## Verify Request Plug
 
 Next: https://elixirschool.com/en/lessons/specifics/plug/#adding-another-plug
 
-
+Create a new file with the path: ``
 
 
 
@@ -208,3 +208,5 @@ https://ieftimov.com/post/a-deeper-dive-in-elixir-plug
 https://dev.to/jonlunsford/elixir-building-a-small-json-endpoint-with-plug-cowboy-and-poison-1826
 + Serving Plug: Building an Elixir HTTP server from scratch
 https://blog.appsignal.com/2019/01/22/serving-plug-building-an-elixir-http-server.html
++ Testing Elixir Plugs (2016):
+https://thoughtbot.com/blog/testing-elixir-plugs
