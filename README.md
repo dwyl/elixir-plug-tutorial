@@ -119,6 +119,9 @@ Once the file is saved, run the app with the following command:
 mix run --no-halt
 ```
 
+> **Note**: to shut down the server,
+use the <kbd>ctrl + c</kbd> keyboard shortcut.
+
 You should see output similar to the following:
 
 ```
@@ -185,13 +188,108 @@ mix run --no-halt
 
 ## Verify Request Plug
 
-Next: https://elixirschool.com/en/lessons/specifics/plug/#adding-another-plug
+The next step in the ElixirSchohol instructions is:
+https://elixirschool.com/en/lessons/specifics/plug/#adding-another-plug
 
-Create a new file with the path: ``
+Create a new file with the path: `lib/app/verify_request.ex`
+
+Visit:
+http://localhost:4000/upload
+
+No content:
+![no-content](https://user-images.githubusercontent.com/194400/78546716-d1df8100-77f5-11ea-87c1-47cd8ae64ad9.png)
 
 
+Terminal output:
+```
+10:38:03.777 [error] #PID<0.339.0> running App.Router (connection #PID<0.338.0>, stream id 1) terminated
+Server: localhost:4000 (http)
+Request: GET /upload
+** (exit) an exception was raised:
+    ** (App.Plug.VerifyRequest.IncompleteRequestError)
+        (app 0.1.0) lib/app/verify_request.ex:23: App.Plug.VerifyRequest.verify_request!/2
+        (app 0.1.0) lib/app/verify_request.ex:13: App.Plug.VerifyRequest.call/2
+        (app 0.1.0) lib/app/router.ex:1: App.Router.plug_builder_call/2
+        (plug_cowboy 2.1.2) lib/plug/cowboy/handler.ex:12: Plug.Cowboy.Handler.init/2
+        (cowboy 2.7.0) /Users/n/code/elixir-plug-tutorial/deps/cowboy/src/cowboy_handler.erl:41: :cowboy_handler.execute/2
+        (cowboy 2.7.0) /Users/n/code/elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl:320: :cowboy_stream_h.execute/3
+        (cowboy 2.7.0) /Users/n/code/elixir-plug-tutorial/deps/cowboy/src/cowboy_stream_h.erl:302: :cowboy_stream_h.request_process/3
+        (stdlib 3.11.2) proc_lib.erl:249: :proc_lib.init_p_do_apply/3
+```
+
+This is **_horrible_ UX**. 😕 <br />
+(_I will **definitely** be improving on this!_)
+
+http://127.0.0.1:4000/upload?content=thing1&mimetype=thing2
+
+![uploaded](https://user-images.githubusercontent.com/194400/78546836-fdfb0200-77f5-11ea-82b6-9a2a1b332300.png)
 
 
+## Testing
+
+Create a file with the following path:
+`test/app/router_test.exs`
+
+Add the following code to the file:
+
+```elixir
+defmodule App.RouterTest do
+  use ExUnit.Case
+  use Plug.Test
+
+  alias App.Router
+
+  @content "<html><body>Hi!</body></html>"
+  @mimetype "text/html"
+
+  @opts Router.init([])
+
+  test "returns welcome" do
+    conn =
+      :get
+      |> conn("/", "")
+      |> Router.call(@opts)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+  end
+
+  test "returns uploaded" do
+    conn =
+      :get
+      |> conn("/upload?content=#{@content}&mimetype=#{@mimetype}")
+      |> Router.call(@opts)
+
+    assert conn.state == :sent
+    assert conn.status == 201
+  end
+
+  test "returns 404" do
+    conn =
+      :get
+      |> conn("/missing", "")
+      |> Router.call(@opts)
+
+    assert conn.state == :sent
+    assert conn.status == 404
+  end
+end
+```
+
+Run the tests with the command:
+
+```
+mix test
+```
+
+You should expect to see the following output:
+
+```
+.....
+
+Finished in 0.03 seconds
+1 doctest, 4 tests, 0 failures
+```
 
 
 
