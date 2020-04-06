@@ -219,8 +219,6 @@ mix run --no-halt
 
 ## Verify Request Plug
 
-The next step in the ElixirSchohol instructions is:
-https://elixirschool.com/en/lessons/specifics/plug/#adding-another-plug
 
 Create a new file with the path: `lib/app/verify_request.ex`
 
@@ -254,8 +252,8 @@ Request: GET /upload
         (stdlib 3.11.2) proc_lib.erl:249: :proc_lib.init_p_do_apply/3
 ```
 
-This is **_horrible_ UX**. 😕 <br />
-(_I will **definitely** be improving on this!_)
+
+This is **_horrible_ UX**. 😕 (_error handling added below_)
 
 http://127.0.0.1:4000/upload?content=thing1&mimetype=thing2
 
