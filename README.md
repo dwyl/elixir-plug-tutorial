@@ -483,6 +483,63 @@ That will open the report in your default web browser:
 ![coverage-report](https://user-images.githubusercontent.com/194400/78594316-fa8c6880-783f-11ea-94fa-c33935f860cc.png)
 
 
+### Test the `handle_errors/2` Function
+
+The lines that remain uncovered in the `router.ex`
+correspond to the:
+
+![handle_errors](https://user-images.githubusercontent.com/194400/78597421-6a512200-7845-11ea-91a1-56f955b56b1e.png)
+
+#### Step 1: Redefine the `handle_errors/2` Function
+
+Update the function definition from `defp` to `def`
+so we can test it.
+
+See:
+[915ef0e](https://github.com/nelsonic/elixir-plug-tutorial/commit/3e2cfa9f05e6317b89399169014b195484c821ac)
+
+
+#### Step 2. Create a Test for `handle_errors/2`
+
+Open the `router_test.exs`
+file and add the following test code:
+
+```elixir
+test "Invoke the App.Router.handle_errors/2" do
+  args = %{kind: "kind", reason: "reason", stack: "stack"}
+  conn =
+    :get
+    |> conn("/", "")
+    |> Map.put(:status, 500)
+    |> Router.handle_errors(args)
+
+  assert conn.resp_body == "Something went wrong"
+end
+```
+
+### Test `App.Plug.VerifyRequest.init`
+
+The only line that is not yet covered in the project is:
+
+![init-uncovered](https://user-images.githubusercontent.com/194400/78600162-56f48580-784a-11ea-9b80-2251604ee080.png)
+
+Create a new file with the path:
+`test/app/verify_request_test.exs`
+
+And paste the following code:
+
+```elixir
+defmodule App.VerifyRequestTest do
+  use ExUnit.Case
+  alias App.Plug.VerifyRequest
+
+  test "invoke init/1" do
+    assert VerifyRequest.init(%{hello: "world"}) == %{hello: "world"}
+  end
+end
+```
+
+
 
 
 

@@ -20,10 +20,11 @@ defmodule App.RouterTest do
   end
 
   test "returns uploaded" do
+    options = App.Plug.VerifyRequest.init(%{})
     conn =
       :get
       |> conn("/upload?content=#{@content}&mimetype=#{@mimetype}")
-      |> Router.call(@opts)
+      |> Router.call(options)
 
     assert conn.state == :sent
     assert conn.status == 201
