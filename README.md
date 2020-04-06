@@ -120,8 +120,6 @@ end
 Your `application.ex` file should look like this:
 [`lib/app/application.ex`](https://github.com/nelsonic/elixir-plug-tutorial/blob/master/lib/app/application.ex)
 
-
-
 Once the file is saved, run the app with the following command:
 
 ```
@@ -165,12 +163,32 @@ defmodule App.Router do
     send_resp(conn, 404, "Oops!")
   end
 end
-
 ```
 
-# Todo: add explanation
+This code sets up a Plug Router by using the `Plug.Router` micros.
+The `plug :match` and `plug :dispatch` do what they suggest,
+matches and dispatches HTTP requests.
+
+```elixir
+get "/" do
+  send_resp(conn, 200, "Hello Elixir Plug!")
+end
+```
+
+Responds the `GET /` with "Hello Elixir Plug!".
+
+```elixir
+match _ do
+  send_resp(conn, 404, "Oops!")
+end
+```
+
+Any other request that does not match the `/`
+(_or other endpoints_)
+will receive this `404` response.
 
 
+Let's update the application to
 
 Open the `application.ex` file and replace the line:
 
@@ -185,6 +203,10 @@ With:
 ```
 
 `App.HelloWorld` -> `App.Router`
+
+
+The `application.ex` file at the end of this step is:
+[`lib/app/application.ex#L10`](https://github.com/nelsonic/elixir-plug-tutorial/blob/98a47ac8e2d3325a38f3f1a0e788114e5f6ccf8e/lib/app/application.ex#L10)
 
 
 ```
