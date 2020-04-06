@@ -1,7 +1,13 @@
 # Elixir Plug Tutorial
 
-Re-doing the Elixir Plug tutorial to update knowledge:
-https://elixirschool.com/en/lessons/specifics/plug
+[![Build Status](https://img.shields.io/travis/dwyl/fields/master.svg?style=flat-square)](https://travis-ci.org/dwyl/fields)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/fields/master.svg?style=flat-square)](http://codecov.io/github/dwyl/fields?branch=master)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/fields/issues)
+
+Learn how to use Elixir Plug to create a basic web server.
+
+
+## Create the App:
 
 Create a new Elixir/OTP project with supervision tree:
 
@@ -375,10 +381,7 @@ stack: [
 ## Tidy Up
 
 By the end of this little quest,
-we have two unused files:
-`lib/app.ex`
-and
-`lib/app/hello_world.ex`
+we have
 
 The best way to discover which files are unused in your project,
 is to run `ExCoveralls`.
@@ -402,7 +405,84 @@ Then in the `deps/0` add the dependency:
 {:excoveralls, "~> 0.12.3", only: :test},
 ```
 
-Your `mix.exs` should now look like this:
+At the end of this step your file should look like this:
+[mix.exs](https://github.com/nelsonic/elixir-plug-tutorial/blob/885fe8f093f7085f8dbb2ee2ecd9824795eeca83/mix.exs)
+
+Once you've added the lines to `mix.exs`
+download the dependencies:
+
+```sh
+mix deps.get
+```
+
+Once the dependencies are downloaded,
+run the following command:
+
+```
+mix coveralls.html
+```
+
+You should see output similar to the following:
+
+```
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+  0.0% lib/app.ex                                     18        0        0
+100.0% lib/app/application.ex                         19        4        0
+  0.0% lib/app/hello_world.ex                         11        2        2
+ 60.0% lib/app/router.ex                              29       10        4
+ 83.3% lib/app/verify_request.ex                      27        6        1
+[TOTAL]  68.2%
+----------------
+```
+
+As we can see, there are two files that are completely unused:
+`lib/app.ex`
+and
+`lib/app/hello_world.ex`. <br />
+Additionally there are two files that are only _partially_ used.
+
+Let's start by removing the unused files
+and the default test:
+```
+git rm lib/app.ex lib/app/hello_world.ex test/app_test.exs
+```
+> Don't worry about deleting files.
+> They are still available in the Git history.
+
+Re-run the coverage report:
+
+```
+mix coveralls.html
+```
+
+The coverage report has increased to 75%:
+
+```
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/app/application.ex                         19        4        0
+ 60.0% lib/app/router.ex                              29       10        4
+ 83.3% lib/app/verify_request.ex                      27        6        1
+[TOTAL]  75.0%
+----------------
+```
+
+Now we can address the "missed" lines
+in the `router.ex` and `verify_request.ex` files.
+
+Open the HTML coverage report
+by running the following command in your terminal:
+
+```
+open cover/excoveralls.html
+```
+
+That will open the report in your default web browser:
+
+![coverage-report](https://user-images.githubusercontent.com/194400/78594316-fa8c6880-783f-11ea-94fa-c33935f860cc.png)
+
+
 
 
 
