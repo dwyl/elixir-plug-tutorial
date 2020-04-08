@@ -1,8 +1,8 @@
 # Elixir Plug Tutorial
 
-[![Build Status](https://img.shields.io/travis/dwyl/fields/master.svg?style=flat-square)](https://travis-ci.org/dwyl/fields)
-[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/fields/master.svg?style=flat-square)](http://codecov.io/github/dwyl/fields?branch=master)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/fields/issues)
+[![Build Status](https://img.shields.io/travis/dwyl/elixir-plug-tutorial/master.svg?style=flat-square)](https://travis-ci.org/dwyl/elixir-plug-tutorial)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/elixir-plug-tutorial/master.svg?style=flat-square)](http://codecov.io/github/dwyl/elixir-plug-tutorial?branch=master)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/elixir-plug-tutorial/issues)
 
 Learn how to use Elixir Plug to create a basic web server.
 
