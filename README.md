@@ -46,7 +46,7 @@ Add the following line to the list of dependencies:
 ```
 
 Once you've saved your file,
-it should looke like this:
+it should look like this:
 [`mix.exs#L25`](https://github.com/nelsonic/elixir-plug-tutorial/blob/2857e49409bb3e21f699a165631701e7ca1323e3/mix.exs#L25)
 
 Install the dependencies by running the following command:
@@ -167,7 +167,7 @@ end
 
 This code sets up a Plug Router by using the `Plug.Router` micros.
 The `plug :match` and `plug :dispatch` do what they suggest,
-matches and dispatches HTTP requests.
+match and dispatch HTTP requests.
 
 ```elixir
 get "/" do

@@ -5,7 +5,7 @@ defmodule App.MixProject do
     [
       app: :app,
       version: "2.1.0",
-      elixir: "~> 1.10",
+      elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
@@ -31,7 +31,7 @@ defmodule App.MixProject do
     [
       {:plug_cowboy, "~> 2.1"},
       # track test coverage:
-      {:excoveralls, "~> 0.12.3", only: :test},
+      {:excoveralls, "~> 0.14.3", only: :test},
     ]
   end
 end
